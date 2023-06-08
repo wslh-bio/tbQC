@@ -68,7 +68,7 @@ include { CUSTOM_DUMPSOFTWAREVERSIONS   } from '../modules/nf-core/custom/dumpso
 // Info required for completion email and summary
 def multiqc_report = []
 
-workflow SPRIGGAN {
+workflow TBQC {
 
     ch_versions = Channel.empty()
 
@@ -242,10 +242,10 @@ workflow SPRIGGAN {
     //
     // MODULE: MultiQC
     //
-    workflow_summary    = WorkflowSpriggan.paramsSummaryMultiqc(workflow, summary_params)
+    workflow_summary    = WorkflowTbqc.paramsSummaryMultiqc(workflow, summary_params)
     ch_workflow_summary = Channel.value(workflow_summary)
 
-    methods_description    = WorkflowSpriggan.methodsDescriptionText(workflow, ch_multiqc_custom_methods_description)
+    methods_description    = WorkflowTbqc.methodsDescriptionText(workflow, ch_multiqc_custom_methods_description)
     ch_methods_description = Channel.value(methods_description)
 
     ch_multiqc_files = Channel.empty()
