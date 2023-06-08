@@ -1,79 +1,135 @@
-## Introduction
+# tbQC
 
-**wslhbio/tbqc** is a bioinformatics pipeline that ...
+### Table of Contents:
+[Usage](#usage)  
+[Workflow outline](#workflow-outline)  
+[Read trimming and quality assessment](#read-trimming-and-quality-assessment)  
+[Genome assembly](#genome-assembly)  
+[Assembly quality assessment](#assembly-quality-assessment)  
+[Genome coverage](#genome-coverage)  
+[MLST scheme](#mlst-scheme)  
+[Contamination detection](#contamination-detection)  
+[Summary](#summary)  
+[Output files](#output-files)  
 
-<!-- TODO nf-core:
-   Complete this sentence with a 2-3 sentence summary of what types of data the pipeline ingests, a brief overview of the
-   major pipeline sections and the types of output it produces. You're giving an overview to someone new
-   to nf-core here, in 15-20 seconds. For an example, see https://github.com/nf-core/rnaseq/blob/master/README.md#introduction
--->
-
-<!-- TODO nf-core: Include a figure that guides the user through the major workflow steps. Many nf-core
-     workflows use the "tube map" design for that. See https://nf-co.re/docs/contributing/design_guidelines#examples for examples.   -->
-<!-- TODO nf-core: Fill in short bullet-pointed list of the default steps in the pipeline -->
-
-1. Read QC ([`FastQC`](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/))
-2. Present QC for raw reads ([`MultiQC`](http://multiqc.info/))
-
-## Usage
-
-> **Note**
-> If you are new to Nextflow and nf-core, please refer to [this page](https://nf-co.re/docs/usage/installation) on how
-> to set-up Nextflow. Make sure to [test your setup](https://nf-co.re/docs/usage/introduction#how-to-run-a-pipeline)
-> with `-profile test` before running the workflow on actual data.
-
-<!-- TODO nf-core: Describe the minimum required steps to execute the pipeline, e.g. how to prepare samplesheets.
-     Explain what rows and columns represent. For instance (please edit as appropriate):
-
-First, prepare a samplesheet with your input data that looks as follows:
-
-`samplesheet.csv`:
-
-```csv
-sample,fastq_1,fastq_2
-CONTROL_REP1,AEG588A1_S1_L002_R1_001.fastq.gz,AEG588A1_S1_L002_R2_001.fastq.gz
+### Usage
+The pipeline is designed to start from raw Illumina reads. All reads must be in the same directory. Then start the pipeline using:
+```
+nextflow tbQC/main.nf --input [path-to-samplesheet] --outdir [path-to-outdir] -profile [docker,singularity,aws]
 ```
 
-Each row represents a fastq file (single-end) or a pair of fastq files (paired end).
-
--->
-
-Now, you can run the pipeline using:
-
-<!-- TODO nf-core: update the following command to include all required parameters for a minimal example -->
-
-```bash
-nextflow run wslhbio/tbqc \
-   -profile <docker/singularity/.../institute> \
-   --input samplesheet.csv \
-   --outdir <OUTDIR>
+You can specify a version of the pipeline and run it directly from the github repository by using:
 ```
+nextflow wslh-bio/tbQC -r [version] --input [path-to-samplesheet] --outdir [path-to-outdir] -profile [docker,singularity,aws]
+```
+
+You can also test the pipeline with example data using `-profile test` or `-profile test_full`:
+```
+nextflow tbQC/main.nf --outdir [path-to-outdir] -profile test,[docker/singularity]
+```
+
+### Workflow outline
+
+#### Read trimming and quality assessment
+Read trimming and cleaning is performed using [BBtools v38.76](https://jgi.doe.gov/data-and-tools/bbtools/) to trim reads of low quality bases and remove PhiX contamination. Then [FastQC v0.11.8](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/) is used assess the quality of the raw and cleaned reads.
+
+#### Genome assembly
+Assembly of the cleaned and trimmed reads is performed using [Shovill v1.1.0](https://github.com/tseemann/shovill).
+
+#### Assembly quality assessment
+Quality assessment of the assemblies is performed using [QUAST v5.0.2](http://bioinf.spbau.ru/quast)
+
+#### Genome coverage
+Mean and median genome coverage is determined by mapping the cleaned reads back their the assembly using [BWA v0.7.17-r1188](http://bio-bwa.sourceforge.net/) and calculating depth using [samtools v1.10](http://www.htslib.org/)
+
+#### MLST scheme
+MLST scheme is classified using [MLST v2.17.6](https://github.com/tseemann/mlst). Multiple schemes are available for specific organisms, and STs from all available schemes are reported for those organisms.
+
+#### Contamination detection
+Contamination is detected by classifying reads using [Kraken2 v2.0.8](https://ccb.jhu.edu/software/kraken2/) with the Minikraken2_v1_8GB database.
+
+#### Summary
+Results are summarized using [MultiQC v1.11](https://multiqc.info/) and [Pandas v1.3.2](https://pandas.pydata.org/).
+
+### Output files
+Example of pipeline output:
+```
+tbqc_results
+├── bbduk
+│   ├── *.fastq.gz
+│   ├── *.adapter.stats.txt
+│   ├── *.bbduk.log
+│   ├── *.trim.txt
+│   └── bbduk_results.tsv
+├── coverage
+│   └── coverage_stats.tsv
+├── fastqc
+│   ├── *.html
+│   ├── *.zip
+│   └── fastqc_summary.tsv
+├── kraken
+│   ├── *.kraken2.txt
+│   ├── kraken_results.tsv
+│   └── kraken2.log
+├── mlst
+│   ├── *.alleles.tsv
+│   ├── *.mlst.tsv
+│   └── mlst_results.tsv
+├── multiqc
+│   ├── multiqc_data
+│   │   ├── *.json
+│   │   ├── *.txt
+│   │   └── multiqc.log
+│   ├── multiqc_plots
+│   │   ├── pdf
+│   │   │   └── *.pdf
+│   │   ├── png
+│   │   │   └── *.png
+│   │   └── svg
+│   │       └── *.svg
+│   └── tbqc_multiqc_report.html
+├── pipeline_info
+│   ├── *.html
+│   ├── *.txt
+│   ├── samplesheet.valid.csv
+│   └── software_versions.yml
+├── quast
+│   ├── *.quast.report.tsv
+│   ├── *.transposed.quast.report.tsv
+│   └── quast_results.tsv
+├── results
+│   └── tbqc_report.csv
+├── samtools
+│   ├── *.bam
+│   ├── *.depth.tsv
+│   └── *.stats.txt
+└── shovill
+    ├── *.contigs.fa
+    ├── *.sam
+    └── shovill_output
+          ├── contigs.gfa
+          ├── shovill.corrections
+          ├── shovill.log
+          └── spades.fasta
+```
+Notable result files:  
+**tbqc_report.csv** - Summary table of each step in tbqc  
+**tbQC_multiqc_report.html** - HTML report generated by MultiQC  
+**\*.contigs.fa** - Shovill assembly for each sample  
+**\*.mlst.tsv** - MLST scheme identified for each sample
 
 > **Warning:**
 > Please provide pipeline parameters via the CLI or Nextflow `-params-file` option. Custom config files including those
 > provided by the `-c` Nextflow option can be used to provide any configuration _**except for parameters**_;
 > see [docs](https://nf-co.re/usage/configuration#custom-configuration-files).
 
-## Credits
-
-wslhbio/tbqc was originally written by Abigail Shockey.
-
-We thank the following people for their extensive assistance in the development of this pipeline:
-
-<!-- TODO nf-core: If applicable, make list of people who have also contributed -->
+### Authors
+[Kelsey Florek](https://github.com/k-florek), WSLH Senior Genomics and Data Scientist  
+[Abigail Shockey](https://github.com/AbigailShockey), WSLH Bioinformatician and Data Scientist
 
 ## Contributions and Support
 
 If you would like to contribute to this pipeline, please see the [contributing guidelines](.github/CONTRIBUTING.md).
-
-## Citations
-
-<!-- TODO nf-core: Add citation for pipeline after first release. Uncomment lines below and update Zenodo doi and badge at the top of this file. -->
-<!-- If you use  wslhbio/tbqc for your analysis, please cite it using the following doi: [10.5281/zenodo.XXXXXX](https://doi.org/10.5281/zenodo.XXXXXX) -->
-
-<!-- TODO nf-core: Add bibliography of tools and data used in your pipeline -->
-
-An extensive list of references for the tools used by the pipeline can be found in the [`CITATIONS.md`](CITATIONS.md) file.
 
 This pipeline uses code and infrastructure developed and maintained by the [nf-core](https://nf-co.re) community, reused here under the [MIT license](https://github.com/nf-core/tools/blob/master/LICENSE).
 
