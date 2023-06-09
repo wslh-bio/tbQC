@@ -1,7 +1,7 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema",
-    "$id": "https://raw.githubusercontent.com/wslhbio/tbqc/master/assets/schema_input.json",
-    "title": "wslhbio/tbqc pipeline - params.input schema",
+    "$id": "https://raw.githubusercontent.com/wslh-bio/tbQC/master/assets/schema_input.json",
+    "title": "wslh-bio/tbQC pipeline - params.input schema",
     "description": "Schema for the file provided with params.input",
     "type": "array",
     "items": {
