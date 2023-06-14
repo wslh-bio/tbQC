@@ -1,5 +1,5 @@
 name: Feature request
-description: Suggest an idea for the wslhbio/tbqc pipeline
+description: Suggest an idea for the wslh-bio/tbQC pipeline
 labels: enhancement
 body:
   - type: textarea
