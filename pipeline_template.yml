@@ -1,4 +1,4 @@
-prefix: wslhbio
+prefix: wslh-bio
 skip:
 - ci
 - github_badges
