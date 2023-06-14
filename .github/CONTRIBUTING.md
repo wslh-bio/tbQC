@@ -52,7 +52,7 @@ These tests are run both with the latest available version of `Nextflow` and als
 
 ## Pipeline contribution conventions
 
-To make the wslhbio/tbqc code and processing logic more understandable for new contributors and to ensure quality, we semi-standardise the way the code and other contributions are written.
+To make the wslh-bio/tbQC code and processing logic more understandable for new contributors and to ensure quality, we semi-standardise the way the code and other contributions are written.
 
 ### Adding a new step
 
