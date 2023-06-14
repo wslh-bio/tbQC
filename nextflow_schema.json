@@ -1,7 +1,7 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema",
-    "$id": "https://raw.githubusercontent.com/wslhbio/tbqc/master/nextflow_schema.json",
-    "title": "wslhbio/tbqc pipeline parameters",
+    "$id": "https://raw.githubusercontent.com/wslh-bio/tbQC/master/nextflow_schema.json",
+    "title": "wslh-bio/tbQC pipeline parameters",
     "description": "",
     "type": "object",
     "definitions": {
