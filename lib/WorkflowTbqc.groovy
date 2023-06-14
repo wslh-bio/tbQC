@@ -1,5 +1,5 @@
 //
-// This file holds several functions specific to the workflow/tbqc.nf in the wslhbio/tbqc pipeline
+// This file holds several functions specific to the workflow/tbqc.nf in the wslh-bio/tbQC pipeline
 //
 
 import nextflow.Nextflow
