@@ -9,12 +9,12 @@ Content-Type: text/html; charset=utf-8
 $email_html
 
 --nfcoremimeboundary
-Content-Type: image/png;name="wslhbio-tbqc_logo.png"
+Content-Type: image/png;name="wslh-bio-tbQC_logo.png"
 Content-Transfer-Encoding: base64
 Content-ID: <nfcorepipelinelogo>
-Content-Disposition: inline; filename="wslhbio-tbqc_logo_light.png"
+Content-Disposition: inline; filename="wslh-bio-tbQC_logo_light.png"
 
-<% out << new File("$projectDir/assets/wslhbio-tbqc_logo_light.png").
+<% out << new File("$projectDir/assets/wslh-bio-tbQC_logo_light.png").
     bytes.
     encodeBase64().
     toString().
