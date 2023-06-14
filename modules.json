@@ -1,6 +1,6 @@
 {
-    "name": "wslhbio/tbqc",
-    "homePage": "https://github.com/wslhbio/tbqc",
+    "name": "wslh-bio/tbQC",
+    "homePage": "https://github.com/wslh-bio/tbQC",
     "repos": {
         "https://github.com/nf-core/modules.git": {
             "modules": {
