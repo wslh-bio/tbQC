@@ -12,7 +12,7 @@ process RESULTS {
     path(kraken_version, stageAs:"kraken_version.yml")
 
     output:
-    path('spriggan_report.csv')
+    path('tbqc_report.csv')
 
     script:
     """
