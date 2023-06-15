@@ -25,7 +25,7 @@ WorkflowMain.initialise(workflow, params, log)
 include { TBQC } from './workflows/tbqc'
 
 //
-// WORKFLOW: Run main wslhbio/tbqc analysis pipeline
+// WORKFLOW: Run main wslh-bio/tbQC analysis pipeline
 //
 workflow WSLHBIO_TBQC {
     TBQC ()
