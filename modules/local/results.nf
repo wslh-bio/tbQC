@@ -10,6 +10,7 @@ process RESULTS {
     path("mlst_results.tsv")
     path("kraken_results.tsv")
     path(kraken_version, stageAs:"kraken_version.yml")
+    path("mash_results.tsv")
 
     output:
     path('tbqc_report.csv')

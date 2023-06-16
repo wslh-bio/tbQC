@@ -221,7 +221,8 @@ workflow TBQC {
         QUAST_SUMMARY.out.quast_tsv,
         MLST_SUMMARY.out.mlst_tsv,
         KRAKEN_SUMMARY.out.kraken_tsv,
-        KRAKEN.out.versions.first()
+        KRAKEN.out.versions.first(),
+        MASH_SUMMARY.out.mash_tsv
     )
 
     //
