@@ -1,4 +1,7 @@
 # tbQC
+![GPL-3.0](https://img.shields.io/github/license/wslh-bio/tbQC)
+
+tbQC is a [NextFlow](https://www.nextflow.io/) pipeline used for assembly of bacterial whole genome sequence data and identification of species and MLST scheme.
 
 ### Table of Contents:
 [Usage](#usage)  
