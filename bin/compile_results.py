@@ -20,7 +20,8 @@ for file in files:
 merged = reduce(lambda  left,right: pd.merge(left,right,on=['Sample'],how='left'), dfs)
 merged = merged.assign(krakenDB=krakenDB_version)
 merged = merged.assign(tbqc=sys.argv[2])
-merged = merged[['Sample','Total Reads','Reads Removed','Median Coverage','Average Coverage','Contigs','Assembly Length (bp)','N50','Primary Species (%)','Secondary Species (%)','Unclassified Reads (%)','krakenDB','Primary Mash Species (Identity)','Secondary Mash Species (Identity)','MLST Scheme','tbqc']]
-merged = merged.rename(columns={'Contigs':'Contigs (#)','Average Coverage':'Mean Coverage','krakenDB':'Kraken Database Verion','tbqc':'tbqc Version'})
+merged = merged.assign(MashDB='RefSeq Release 70')
+merged = merged[['Sample','Total Reads','Reads Removed','Median Coverage','Average Coverage','Contigs','Assembly Length (bp)','N50','Primary Species (%)','Secondary Species (%)','Unclassified Reads (%)','krakenDB','Primary Mash Species (Identity)','Secondary Mash Species (Identity)','Mash P-Value (Primary Species;Seconday Species)','MashDB','MLST Scheme','tbqc']]
+merged = merged.rename(columns={'Contigs':'Contigs (#)','Average Coverage':'Mean Coverage','krakenDB':'Kraken Database Verion','tbqc':'tbQC Version','MashDB':'Mash Database Version'})
 
 merged.to_csv('tbqc_report.csv', index=False, sep=',', encoding='utf-8')

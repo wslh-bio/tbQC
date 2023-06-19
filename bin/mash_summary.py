@@ -13,7 +13,7 @@ def summarize_mash(file):
     df = pd.read_csv(file, sep='\t', names=['RefSeq ID','Sample','Identity','P-value','Shared Hashes'])
     df = df.head(2)
     # keep only Sample RefSeq ID and Identity columns in data frame
-    df = df[['Sample','RefSeq ID','Identity']]
+    df = df[['Sample','RefSeq ID','Identity','P-value']]
     # check if data frame has two rows
     if len(df) == 0:
         # add two empty rows to species data frame
@@ -25,19 +25,24 @@ def summarize_mash(file):
     # if primary species is nan, replace with NA
     if str(df.iloc[0]['RefSeq ID']) == 'nan':
         primary_species = 'NA'
+        primary_pval = 'NA'
     # else, get primary RefSeq ID match and put Identity in parentheses
     else:
         primary_species = df.iloc[0]['RefSeq ID'] + ' (' + str(df.iloc[0]['Identity']) + ')'
+        primary_pval = str(df.iloc[0]['P-value'])
     # repeat for secondary species
     if str(df.iloc[1]['RefSeq ID']) == 'nan':
         secondary_species = 'NA'
+        secondary_pval = 'NA'
     else:
         print(df.iloc[1]['RefSeq ID'])
         secondary_species = df.iloc[1]['RefSeq ID'] + ' (' + str(df.iloc[1]['Identity']) + ')'
+        secondary_pval = str(df.iloc[1]['P-value'])
+    pvals = primary_pval + ";" + secondary_pval
     # list of lists
-    combined = [[sample_id, primary_species, secondary_species]]
+    combined = [[sample_id, primary_species, secondary_species,pvals]]
     # convert list of lists to data frame
-    combined_df = DataFrame(combined, columns=['Sample','Primary Mash Species (Identity)','Secondary Mash Species (Identity)'])
+    combined_df = DataFrame(combined, columns=['Sample','Primary Mash Species (Identity)','Secondary Mash Species (Identity)','Mash P-Value (Primary Species;Seconday Species)'])
     return combined_df
 
 
