@@ -68,6 +68,9 @@ tbqc_results
 │   ├── *.zip
 │   └── fastqc_summary.tsv
 ├── kraken
+│   ├── *.mash.tsv
+│   └── mash_results.tsv
+├── mash
 │   ├── *.kraken2.txt
 │   ├── kraken_results.tsv
 │   └── kraken2.log
