@@ -23,7 +23,7 @@ You can specify a version of the pipeline and run it directly from the github re
 nextflow wslh-bio/tbQC -r [version] --input [path-to-samplesheet] --outdir [path-to-outdir] -profile [docker,singularity,aws]
 ```
 
-You can also test the pipeline with example data using `-profile test` or `-profile test_full`:
+You can also test the pipeline with example data using `-profile test`:
 ```
 nextflow tbQC/main.nf --outdir [path-to-outdir] -profile test,[docker/singularity]
 ```
