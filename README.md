@@ -8,7 +8,7 @@
 [Assembly quality assessment](#assembly-quality-assessment)  
 [Genome coverage](#genome-coverage)  
 [MLST scheme](#mlst-scheme)  
-[Contamination detection](#contamination-detection)  
+[Species determination](#species-determination)  
 [Summary](#summary)  
 [Output files](#output-files)  
 
@@ -45,7 +45,7 @@ Mean and median genome coverage is determined by mapping the cleaned reads back 
 #### MLST scheme
 MLST scheme is classified using [MLST v2.17.6](https://github.com/tseemann/mlst). Multiple schemes are available for specific organisms, and STs from all available schemes are reported for those organisms.
 
-#### Species detection
+#### Species determination
 Species is determined by classifying reads using [Kraken2 v2.0.8](https://ccb.jhu.edu/software/kraken2/) and [Mash](https://mash.readthedocs.io/en/latest/index.html).
 
 #### Summary
@@ -131,7 +131,7 @@ Notable result files:
 
 If you would like to contribute to this pipeline, please see the [contributing guidelines](.github/CONTRIBUTING.md).
 
-This pipeline uses code and infrastructure developed and maintained by the [nf-core](https://nf-co.re) community, reused here under the [MIT license](https://github.com/nf-core/tools/blob/master/LICENSE).
+This pipeline uses code and infrastructure developed and maintained by the [nf-core](https://nf-co.re) community.
 
 > **The nf-core framework for community-curated bioinformatics pipelines.**
 >
