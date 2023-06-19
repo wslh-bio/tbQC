@@ -45,8 +45,8 @@ Mean and median genome coverage is determined by mapping the cleaned reads back 
 #### MLST scheme
 MLST scheme is classified using [MLST v2.17.6](https://github.com/tseemann/mlst). Multiple schemes are available for specific organisms, and STs from all available schemes are reported for those organisms.
 
-#### Contamination detection
-Contamination is detected by classifying reads using [Kraken2 v2.0.8](https://ccb.jhu.edu/software/kraken2/) with the Minikraken2_v1_8GB database.
+#### Species detection
+Species is determined by classifying reads using [Kraken2 v2.0.8](https://ccb.jhu.edu/software/kraken2/) and [Mash](https://mash.readthedocs.io/en/latest/index.html).
 
 #### Summary
 Results are summarized using [MultiQC v1.11](https://multiqc.info/) and [Pandas v1.3.2](https://pandas.pydata.org/).
