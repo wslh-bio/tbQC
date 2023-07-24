@@ -6,12 +6,6 @@ import nextflow.Nextflow
 import groovy.text.SimpleTemplateEngine
 
 class WorkflowTbqc {
-
-    //
-    // Check and validate parameters
-    //
-    public static void initialise(params, log) {
-
     //
     // Get workflow summary for MultiQC
     //
